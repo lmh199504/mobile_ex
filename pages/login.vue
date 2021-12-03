@@ -23,7 +23,7 @@
           </template>
         </van-field>
         <div class="submit_btn">
-          <van-button round block type="info"  @click="onSubmit">登录</van-button>
+          <van-button round block type="info" @click="onSubmit">登录</van-button>
         </div>
       </van-form>
     </div>
@@ -48,7 +48,9 @@
 </template>
 
 <script>
-  import { dateFormat } from '@/utils/util.js'
+  import {
+    dateFormat, rsaData
+  } from '@/utils/util.js'
   export default {
     data() {
       return {
@@ -75,33 +77,29 @@
           return;
         }
 
-        let params = {
-          phone: this.rsaData(this.phone),
-          code: this.rsaData(this.code)
-        }
         const toast = this.$toast.loading({
           duration: 0, // 持续展示 toast
           forbidClick: true,
           message: '登录中...',
         });
         const data = {
-          phone: this.phone,
-          code: this.code
+          phone: rsaData(this.phone),
+          code: rsaData(this.code)
         }
-        this.$api.reqGetExportToken(data)
-        .then(res => {
-          console.log(res)
-          toast.clear();
-          if(res.msg) {
-            this.$toast(res.msg)
-          } else {
-            const redirect = this.$route.query.redirect
-            this.$store.commit('expert/setExpertToken', res.token)
-            this.$router.push({
-              path: redirect ? decodeURIComponent(redirect) : '/Service/expertFill'
-            })
-          }
-        })
+        this.$api.reqLoginByCode(data)
+          .then(res => {
+            console.log(res)
+            toast.clear();
+            if (res.msg) {
+              this.$toast(res.msg)
+            } else {
+              this.$router.push('/')
+            }
+          })
+          .catch(() => {
+            toast.clear();
+            this.$toast('网络异常~')
+          })
       },
       getVerificationCode() {
         const value = this.validator(this.phone)
@@ -110,35 +108,29 @@
             message: '请输入正确手机号码',
           })
         }
-        this.$axios({
-          baseURL: "/apex",
-          prefix: "/apex",
-          url: "/code/reporting/getLoginSms",
-          method: "POST",
-          params: {
+        this.$api.getLoginCode({
             phone: this.phone
-          }
-        })
-        .then(res => {
-          console.log(res)
-          if(res.msg) {
-            this.$toast(res.msg);
-          } else {
-            this.$toast('验证码已发送至您手机，请注意查收');
-            this.isSend = true
-            this.timer = setInterval(() => {
-              this.seconds--
-              if (this.seconds <= 0) {
-                this.isSend = false
-                this.seconds = 60
-                clearInterval(this.timer)
-              }
-            }, 1000)
-          }
-        })
-        .catch(err => {
-          this.$toast('网络异常');
-        })
+          })
+          .then(res => {
+            console.log(res)
+            if (res.msg) {
+              this.$toast(res.msg);
+            } else {
+              this.$toast('验证码已发送至您手机，请注意查收');
+              this.isSend = true
+              this.timer = setInterval(() => {
+                this.seconds--
+                if (this.seconds <= 0) {
+                  this.isSend = false
+                  this.seconds = 60
+                  clearInterval(this.timer)
+                }
+              }, 1000)
+            }
+          })
+          .catch(err => {
+            this.$toast('网络异常');
+          })
       },
       // 验证手机号码格式
       validator(val) {
@@ -198,19 +190,26 @@
       }
     }
   }
+
   // 承诺书
-  .promise_container{
+  .promise_container {
     padding: 15px;
-    max-height: 500px;
+    max-height: 8rem;
     overflow: auto;
-    h1{
+
+    h1 {
       font-size: 16px;
       text-align: center;
     }
-    p{
+
+    p {
       font-size: 14px;
       line-height: 28px;
       text-indent: 2em;
+    }
+
+    .cur_time {
+      text-align: right;
     }
   }
 </style>

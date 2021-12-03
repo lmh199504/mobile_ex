@@ -51,7 +51,10 @@
     },
     methods: {
       getInfo() {},
-      save() {}
+      save() {},
+      onClickLeft() {
+        this.$router.go(-1)
+      }
     },
   }
 </script>

@@ -6,11 +6,11 @@
         <img src="../assets/images/userInfo/person_bg.jpg" style="width: 100%;" />
       </div>
       <!-- 个人信息 -->
-      <div class="my_flex_row_b per_info" @click="jumpEdit">
+      <div class="my_flex_row_b per_info">
         <div class="avator">
           <img src="../assets/images/head.jpg" style="width: 100%;height: 100%;">
         </div>
-        <div class="info_com my_flex_col">
+        <div class="info_com my_flex_col" @click="jumpUrl('/personInfo')">
           <div class="my_flex_row_b" style="margin-bottom: 8px;">
             <span style="font-size: 18px;">15888888888</span>
             <span>

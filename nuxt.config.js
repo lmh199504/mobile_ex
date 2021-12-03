@@ -26,7 +26,10 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '@/plugins/vant'
+    '@/plugins/vant',
+    '@/plugins/axios',
+    '@/plugins/api',
+    '@/plugins/route'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -40,7 +43,8 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    "@nuxtjs/proxy"
+    "@nuxtjs/proxy",
+    'cookie-universal-nuxt'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -51,7 +55,7 @@ export default {
   },
   proxy: {
     '/api': {
-      target: 'http://www.example.org', //'https://home.xmcredit.cn/', // 目标接口域名
+      target: 'http://10.0.9.184:48090/reporting/', //'https://home.xmcredit.cn/', // 目标接口域名
       changeOrigin: true, // 表示是否跨域
       pathRewrite: {
         '^/api': '/', // 把 /api 替换成 /

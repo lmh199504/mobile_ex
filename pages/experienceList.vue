@@ -1,7 +1,7 @@
 <!-- 体验官列表 -->
 <template>
   <div class="experienceList">
-    <van-nav-bar left-arrow :border="false">
+    <van-nav-bar left-arrow :border="false"   @click-left="onClickLeft">
       <template #title>
         <van-search v-model="keyword" placeholder="搜索" background="#1349AB" @search="onSearch" />
       </template>
@@ -202,6 +202,9 @@
     methods: {
       onSearch() {
         console.log(this.keyword)
+      },
+      onClickLeft() {
+        this.$router.go(-1)
       }
     },
   }
@@ -219,9 +222,12 @@
   /deep/ .van-nav-bar {
     background-color: #1349AB;
     height: 1.22rem;
-
+    .van-nav-bar__content{
+      height: 100%;
+    }
     .van-search__content {
       background-color: #3674e4;
+      
     }
 
     .van-nav-bar__title {
