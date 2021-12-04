@@ -12,12 +12,12 @@
         </div>
         <div class="info_com my_flex_col" @click="jumpUrl('/personInfo')">
           <div class="my_flex_row_b" style="margin-bottom: 8px;">
-            <span style="font-size: 18px;">15888888888</span>
+            <span style="font-size: 18px;">{{ userInfo.reporterPhone }}</span>
             <span>
               <van-icon name="arrow" />
             </span>
           </div>
-          <div class="my_flex_row_b">张三丰</div>
+          <div class="my_flex_row_b">{{ userInfo.reporterUsername }}</div>
         </div>
       </div>
 
@@ -61,8 +61,14 @@
             icon: require('../assets/images/userInfo/u5050.png'),
             url: "/experienceList"
           }
-        ]
+        ],
+        userInfo: {
+
+        }
       }
+    },
+    created() {
+      this.getInfo()
     },
     methods: {
 
@@ -70,13 +76,23 @@
         this.$router.push(url);
       },
       getInfo() {
+        this.$api.reqGetInfo()
+        .then(res => {
+          console.log(res)
+          this.userInfo = res.user
+        })
+        .catch(() => {
 
+        })
       },
       logOut() {
         this.$dialog.confirm({
           title: '提示',
           message: '是否确认退出？'
-        }).then(res => {}).catch(error => {})
+        }).then(res => {
+          this.$store.commit('logout')
+          this.$router.push('/login')
+        }).catch(error => {})
       },
       onClickLeft() {
         this.$router.go(-1)

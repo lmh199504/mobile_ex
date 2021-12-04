@@ -4,7 +4,7 @@ export default function({
 }, inject) {
   const API = {}
   API.getLoginCode = (params) => $axios({
-    url: "/code/reporting/getLoginCodeSmsCode",
+    url: "/code/reporting/getLoginSms",
     method: "POST",
     params
   })
@@ -15,7 +15,14 @@ export default function({
     data
   })
 
-
+  API.reqGetInfo = () => $axios({
+    url: "/getInfo"
+  })
+  API.reqSaveInfo = (data) => $axios({
+    url: "/reporting/user/profile",
+    method: "PUT",
+    data
+  })
   app.api = API;
   inject('api', API);
 }

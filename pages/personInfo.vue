@@ -5,20 +5,20 @@
       <div class="form_item border_b" style="margin-top: 10px;">
         <div class="item_label">真实姓名</div>
         <div class="item_con">
-          <input v-model="getUserInfo.realname" readonly type="text" placeholder="请输入真实姓名一致的身份证号码" style="" />
+          <input v-model="userInfo.reporterUsername" type="text" placeholder="真实姓名" style="" />
         </div>
       </div>
       <div class="form_item border_b">
         <div class="item_label">手机号码</div>
         <div class="item_con">
-          <input v-model="getUserInfo.mobile" readonly type="text" placeholder="请输入您的手机号" style="" />
+          <input v-model="userInfo.reporterPhone" readonly type="text" placeholder="请输入您的手机号" style="" />
         </div>
       </div>
 
       <div class="form_item border_b">
         <div class="item_label">身份证</div>
         <div class="item_con">
-          <input v-model="getUserInfo.cardCode" :readonly="cardReadOnly" type="text" placeholder="请输入真实姓名一致的身份证号码"
+          <input v-model="userInfo.reporterIdNumber" readonly type="text" placeholder="身份证"
             style="" />
         </div>
       </div>
@@ -26,7 +26,7 @@
       <div class="form_item border_b">
         <div class="item_label">我的承诺书</div>
         <div class="item_con">
-          <div class="promise_check">查看</div>
+          <div class="promise_check" @click="goCheck">查看</div>
         </div>
       </div>
 
@@ -39,19 +39,46 @@
   export default {
     data() {
       return {
-        getUserInfo: {
-          realname: '撒打发',
-          mobile: "1234",
-          cardCode: "撒打发2313232"
+        userInfo: {
+
         },
       }
     },
-    mounted() {
+    created() {
       this.getInfo();
     },
     methods: {
-      getInfo() {},
-      save() {},
+      getInfo() {
+        this.$api.reqGetInfo()
+        .then(res => {
+          console.log(res)
+          this.userInfo = res.user
+        })
+        .catch(() => {
+
+        })
+      },
+      save() {
+        if(!this.userInfo.reporterUsername) {
+          this.$toast("请输入名字")
+          return
+        }
+        const loading = this.$toast.loading({
+          duration: 0,
+          message: "加载中..."
+        })
+        this.$api.reqSaveInfo(this.userInfo)
+        .then(res => {
+          loading.clear()
+          this.$toast("修改成功")
+        })
+        .catch(() => {
+          loading.clear()
+        })
+      },
+      goCheck() {
+        this.$router.push('/promise')
+      },
       onClickLeft() {
         this.$router.go(-1)
       }

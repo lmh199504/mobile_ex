@@ -15,34 +15,33 @@ export default function({
     const token = app.$cookies.get('ex_token')
     console.log(token)
     if(token) {
-      config.headers.Authorization = token
+      config.headers.Authorization = 'Bearer ' + token
     }
     return config
   })
 
   // 响应拦截
   $axios.onResponse((res) => {
-    if (res.data.code === 401) {
-      Toast('未登录或登录失效，即将跳转登录页!');
-      if (process.browser) {
-        setTimeout(() => {
-          redirect({
-            path: '/login',
-            // query: { redirect: encodeURIComponent(req.url) },
-          })
-        }, 2000);
-      }
-    }
-    if (res.data.code === 200) {
-      if (res.data.data || res.data.data === 0) {
-        return Promise.resolve(res.data.data)
-      } else if (res.data.rows) {
+
+    const code = res.data.code
+
+    switch (code){
+      case 200:
         return Promise.resolve(res.data)
-      } else if (res.data.content) {
-        return Promise.resolve(res.data)
-      }
-    } else if (res.data.code === 500) {
-      return Promise.resolve(res.data)
+        break;
+      case 401:
+        Toast('未登录或登录失效，即将跳转登录页!');
+        if (process.browser) {
+          setTimeout(() => {
+            redirect({
+              path: '/login',
+              // query: { redirect: encodeURIComponent(req.url) },
+            })
+          }, 2000);
+        }
+        break;
+      default:
+        return Promise.resolve(res)
     }
   })
   // 错误处理

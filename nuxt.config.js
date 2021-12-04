@@ -1,5 +1,15 @@
 
 const Timestamp = new Date().getTime();
+
+
+// 本地
+// const baseApi = 'http://10.0.251.212:8888/'
+// 测试
+// const baseApi = 'http://10.0.9.184:48090/project/'
+// uat
+const baseApi = 'https://cxo.xmcredit.cn/project/'
+
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -42,6 +52,7 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
+    "@nuxtjs/dotenv",
     '@nuxtjs/axios',
     "@nuxtjs/proxy",
     'cookie-universal-nuxt'
@@ -55,7 +66,7 @@ export default {
   },
   proxy: {
     '/api': {
-      target: 'http://10.0.9.184:48090/reporting/', //'https://home.xmcredit.cn/', // 目标接口域名
+      target: baseApi, // 目标接口域名
       changeOrigin: true, // 表示是否跨域
       pathRewrite: {
         '^/api': '/', // 把 /api 替换成 /

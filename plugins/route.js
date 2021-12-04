@@ -1,10 +1,15 @@
-
-export default function({ app }) {
-  app.router.beforeEach((from , to , next) => {
+export default function({
+  app
+}) {
+  app.router.beforeEach(async(to, from, next) => {
+    const whitePath = ['/login']
     const token = app.$cookies.get('ex_token')
-    console.log(token)
-    if(!token) {
-      next('/login')
+    if (!token) {
+      if (whitePath.includes(to.path)) {
+        next()
+      } else {
+        next('/login')
+      }
     } else {
       next()
     }

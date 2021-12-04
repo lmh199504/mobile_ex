@@ -49,7 +49,8 @@
 
 <script>
   import {
-    dateFormat, rsaData
+    dateFormat,
+    rsaData
   } from '@/utils/util.js'
   export default {
     data() {
@@ -59,7 +60,7 @@
         isSend: false,
         seconds: 60,
         pattern: /^\d{6}$/,
-        show: true,
+        show: false,
         cur_date: ""
       }
     },
@@ -82,18 +83,24 @@
           forbidClick: true,
           message: '登录中...',
         });
+        // const data = {
+        //   phone: rsaData(this.phone),
+        //   code: rsaData(this.code)
+        // }
         const data = {
-          phone: rsaData(this.phone),
-          code: rsaData(this.code)
+          phone: this.phone,
+          code: this.code
         }
+
         this.$api.reqLoginByCode(data)
           .then(res => {
             console.log(res)
             toast.clear();
-            if (res.msg) {
-              this.$toast(res.msg)
+            if (res.code == 200) {
+              this.$store.commit('setToken', res.token)
+              this.$router.replace('/')
             } else {
-              this.$router.push('/')
+              this.$toast(res.msg)
             }
           })
           .catch(() => {
@@ -113,9 +120,7 @@
           })
           .then(res => {
             console.log(res)
-            if (res.msg) {
-              this.$toast(res.msg);
-            } else {
+            if (res.code == 200) {
               this.$toast('验证码已发送至您手机，请注意查收');
               this.isSend = true
               this.timer = setInterval(() => {
@@ -126,6 +131,8 @@
                   clearInterval(this.timer)
                 }
               }, 1000)
+            } else {
+              this.$toast(res.msg);
             }
           })
           .catch(err => {
