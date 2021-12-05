@@ -7,191 +7,28 @@
       </template>
     </van-nav-bar>
     <van-tabs v-model="active" background="#1349AB" color="#FFF000" title-active-color="#FFF000"
-      title-inactive-color="#ffffff">
+      title-inactive-color="#ffffff" :lazy-render="false">
       <van-tab title="全部">
         <div class="list">
-          <div class="ex_item">
-            <div class="ex_title">厦门市营商环线上体验表（发票网上申领）</div>
-            <div>
-              <van-tag color="#1349AB">已提交</van-tag>
-              <van-tag color="#F58D39">未提交</van-tag>
-              <span class="ex_time">2021-12-11 12:00</span>
-            </div>
-            <div class="ex_footer">
-              <div class="ex_end_time">截止时间：2021-12-11</div>
-              <div class="ex_num">
-                5
-                <span>个问题</span>
-              </div>
-            </div>
-          </div>
-          <div class="ex_item">
-            <div class="ex_title">厦门市营商环线上体验表（发票网上申领）</div>
-            <div>
-              <van-tag color="#1349AB">已提交</van-tag>
-              <van-tag color="#F58D39">未提交</van-tag>
-              <span class="ex_time">2021-12-11 12:00</span>
-            </div>
-            <div class="ex_footer">
-              <div class="ex_end_time">截止时间：2021-12-11</div>
-              <div class="ex_num">
-                5
-                <span>个问题</span>
-              </div>
-            </div>
-          </div>
-          <div class="ex_item">
-            <div class="ex_title">厦门市营商环线上体验表（发票网上申领）</div>
-            <div>
-              <van-tag color="#1349AB">已提交</van-tag>
-              <van-tag color="#F58D39">未提交</van-tag>
-              <span class="ex_time">2021-12-11 12:00</span>
-            </div>
-            <div class="ex_footer">
-              <div class="ex_end_time">截止时间：2021-12-11</div>
-              <div class="ex_num">
-                5
-                <span>个问题</span>
-              </div>
-            </div>
-          </div>
-          <div class="ex_item">
-            <div class="ex_title">厦门市营商环线上体验表（发票网上申领）</div>
-            <div>
-              <van-tag color="#1349AB">已提交</van-tag>
-              <van-tag color="#F58D39">未提交</van-tag>
-              <span class="ex_time">2021-12-11 12:00</span>
-            </div>
-            <div class="ex_footer">
-              <div class="ex_end_time">截止时间：2021-12-11</div>
-              <div class="ex_num">
-                5
-                <span>个问题</span>
-              </div>
-            </div>
-          </div>
-          <div class="ex_item">
-            <div class="ex_title">厦门市营商环线上体验表（发票网上申领）</div>
-            <div>
-              <van-tag color="#1349AB">已提交</van-tag>
-              <van-tag color="#F58D39">未提交</van-tag>
-              <span class="ex_time">2021-12-11 12:00</span>
-            </div>
-            <div class="ex_footer">
-              <div class="ex_end_time">截止时间：2021-12-11</div>
-              <div class="ex_num">
-                5
-                <span>个问题</span>
-              </div>
-            </div>
-          </div>
-          <div class="ex_item">
-            <div class="ex_title">厦门市营商环线上体验表（发票网上申领）</div>
-            <div>
-              <van-tag color="#1349AB">已提交</van-tag>
-              <van-tag color="#F58D39">未提交</van-tag>
-              <span class="ex_time">2021-12-11 12:00</span>
-            </div>
-            <div class="ex_footer">
-              <div class="ex_end_time">截止时间：2021-12-11</div>
-              <div class="ex_num">
-                5
-                <span>个问题</span>
-              </div>
-            </div>
-          </div>
-          <div class="ex_item">
-            <div class="ex_title">厦门市营商环线上体验表（发票网上申领）</div>
-            <div>
-              <van-tag color="#1349AB">已提交</van-tag>
-              <van-tag color="#F58D39">未提交</van-tag>
-              <span class="ex_time">2021-12-11 12:00</span>
-            </div>
-            <div class="ex_footer">
-              <div class="ex_end_time">截止时间：2021-12-11</div>
-              <div class="ex_num">
-                5
-                <span>个问题</span>
-              </div>
-            </div>
-          </div>
-          <div class="ex_item">
-            <div class="ex_title">厦门市营商环线上体验表（发票网上申领）</div>
-            <div>
-              <van-tag color="#1349AB">已提交</van-tag>
-              <van-tag color="#F58D39">未提交</van-tag>
-              <span class="ex_time">2021-12-11 12:00</span>
-            </div>
-            <div class="ex_footer">
-              <div class="ex_end_time">截止时间：2021-12-11</div>
-              <div class="ex_num">
-                5
-                <span>个问题</span>
-              </div>
-            </div>
-          </div>
-          <div class="ex_item">
-            <div class="ex_title">厦门市营商环线上体验表（发票网上申领）</div>
-            <div>
-              <van-tag color="#1349AB">已提交</van-tag>
-              <van-tag color="#F58D39">未提交</van-tag>
-              <span class="ex_time">2021-12-11 12:00</span>
-            </div>
-            <div class="ex_footer">
-              <div class="ex_end_time">截止时间：2021-12-11</div>
-              <div class="ex_num">
-                5
-                <span>个问题</span>
-              </div>
-            </div>
-          </div>
+          <ExList :activityItemName="keyword" ref="all" />
         </div>
       </van-tab>
       <van-tab title="已提交">
         <div class="list">
-          <div class="ex_item">
-            <div class="ex_title">厦门市营商环线上体验表（发票网上申领）</div>
-            <div>
-              <van-tag color="#1349AB">已提交</van-tag>
-              <van-tag color="#F58D39">未提交</van-tag>
-              <span class="ex_time">2021-12-11 12:00</span>
-            </div>
-            <div class="ex_footer">
-              <div class="ex_end_time">截止时间：2021-12-11</div>
-              <div class="ex_num">
-                5
-                <span>个问题</span>
-              </div>
-            </div>
-          </div>
+          <ExList :activityItemName="keyword" submitStatus="1" ref="submit" />
         </div>
       </van-tab>
       <van-tab title="未提交">
         <div class="list">
-          <div class="ex_item">
-            <div class="ex_title">厦门市营商环线上体验表（发票网上申领）</div>
-            <div>
-              <van-tag color="#1349AB">已提交</van-tag>
-              <van-tag color="#F58D39">未提交</van-tag>
-              <span class="ex_time">2021-12-11 12:00</span>
-            </div>
-            <div class="ex_footer">
-              <div class="ex_end_time">截止时间：2021-12-11</div>
-              <div class="ex_num">
-                5
-                <span>个问题</span>
-              </div>
-            </div>
-          </div>
+          <ExList :activityItemName="keyword" submitStatus="0" ref="unsubmit" />
         </div>
       </van-tab>
     </van-tabs>
-
-
   </div>
 </template>
 
 <script>
+  import ExList from '@/components/exList.vue'
   export default {
     data() {
       return {
@@ -199,9 +36,14 @@
         active: 0
       }
     },
+    components: {
+      ExList
+    },
     methods: {
       onSearch() {
-        console.log(this.keyword)
+        this.$refs.all.getData()
+        this.$refs.submit.getData()
+        this.$refs.unsubmit.getData()
       },
       onClickLeft() {
         this.$router.go(-1)
@@ -227,7 +69,7 @@
     }
     .van-search__content {
       background-color: #3674e4;
-      
+
     }
 
     .van-nav-bar__title {

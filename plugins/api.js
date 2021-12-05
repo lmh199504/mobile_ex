@@ -23,6 +23,19 @@ export default function({
     method: "PUT",
     data
   })
+
+  API.reqGetUserActivityItemList = (data) => $axios({
+    url: "/reporting/user/profile/getUserActivityItemList",
+    method: "GET",
+    params: data
+  })
+  
+  API.reqFormDetail = (id) => $axios({
+    url: `/user/project/details/${id}`,
+    method: "GET"
+  })
+  
+  
   app.api = API;
   inject('api', API);
 }
