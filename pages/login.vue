@@ -115,11 +115,17 @@
             message: '请输入正确手机号码',
           })
         }
+        const loading = this.$toast.loading({
+          duration: 0,
+          message: "加载中...",
+          overlay: true
+        })
         this.$api.getLoginCode({
             phone: this.phone
           })
           .then(res => {
             console.log(res)
+            loading.clear()
             if (res.code == 200) {
               this.$toast('验证码已发送至您手机，请注意查收');
               this.isSend = true
@@ -136,6 +142,7 @@
             }
           })
           .catch(err => {
+            loading.clear()
             this.$toast('网络异常');
           })
       },

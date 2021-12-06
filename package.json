@@ -16,7 +16,8 @@
     "jsencrypt": "^3.2.1",
     "less-loader": "^6.0.0",
     "nuxt": "^2.15.7",
-    "vant": "^2.12.22"
+    "vant": "^2.12.22",
+    "xmceloan-form-design-cst": "^0.1.102"
   },
   "devDependencies": {
     "less": "^4.1.2"

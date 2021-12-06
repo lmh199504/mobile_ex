@@ -8,10 +8,11 @@
     <div class="ex_item" v-for="(item, index) in list" :key="index">
       <div class="ex_title">{{ item.activityName }}</div>
       <div>
-        <van-tag color="#F58D39" v-if="item.expireStatus==0">未提交</van-tag>
-        <van-tag color="#1349AB" v-else>已提交</van-tag>
+        <van-tag color="#1349AB" v-if="item.submitStatus==1">已提交</van-tag>
+        <van-tag color="#F58D39" v-else>未提交</van-tag>
+        
 
-        <span class="ex_time" v-if="item.expireStatus!=0">{{ item.submitTime }}</span>
+        <span class="ex_time" v-if="item.submitStatus==1">{{ item.submitTime }}</span>
       </div>
       <div class="ex_footer">
         <div class="ex_end_time">截止时间：{{ item.activityItemEndTime }}</div>

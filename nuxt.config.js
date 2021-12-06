@@ -3,11 +3,11 @@ const Timestamp = new Date().getTime();
 
 
 // 本地
-// const baseApi = 'http://10.0.251.212:8888/'
+const baseApi = 'http://10.0.251.212:8888/'
 // 测试
 // const baseApi = 'http://10.0.9.184:48090/project/'
 // uat
-const baseApi = 'https://cxo.xmcredit.cn/project/'
+// const baseApi = 'https://cxo.xmcredit.cn/project/'
 
 
 export default {
@@ -31,7 +31,8 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '@/assets/css/global.less',
-    'vant/lib/index.css'
+    'vant/lib/index.css',
+    'xmceloan-form-design-cst/dist/xmceloan-form-design-cst.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -39,7 +40,8 @@ export default {
     '@/plugins/vant',
     '@/plugins/axios',
     '@/plugins/api',
-    '@/plugins/route'
+    '@/plugins/route',
+    { src: '@/plugins/component', ssr: false }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

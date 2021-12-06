@@ -47,7 +47,7 @@ export default function({
         }
         break;
       default:
-        return Promise.resolve(res)
+        return Promise.resolve(res.data)
     }
   })
   // 错误处理
