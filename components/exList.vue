@@ -10,10 +10,29 @@
       <div>
         <van-tag color="#1349AB" v-if="item.submitStatus==1">已提交</van-tag>
         <van-tag color="#F58D39" v-else>未提交</van-tag>
-        
-
         <span class="ex_time" v-if="item.submitStatus==1">{{ item.submitTime }}</span>
       </div>
+      <div class="ex_span">
+        <span>事项来源：</span>
+        <span>{{ item.sourcesName }}</span>
+      </div>
+      <div class="ex_span">
+        <span>事项类别：</span>
+        <span>{{ item.typeName }}</span>
+      </div>
+      <div class="ex_span">
+        <span>体验事项：</span>
+        <span>{{ item.activityItemName }}</span>
+      </div>
+      <div class="ex_span">
+        <span>说明：</span>
+        <span>{{ item.activityItemName }}</span>
+      </div>
+      <div class="ex_span">
+        <span>办理途径：</span>
+        <span>{{ item.activityItemName }}</span>
+      </div>
+
       <div class="ex_footer">
         <div class="ex_end_time">截止时间：{{ item.activityItemEndTime }}</div>
         <div class="ex_num">
@@ -32,9 +51,15 @@
         type: String | Number,
         default: undefined
       },
-      activityItemName: {
-        type: String,
-        default: undefined
+      queryParams: {
+        type: Object,
+        default: function() {
+          return {
+            sourcesName: '',
+            activityItemName: '',
+            typeName: '',
+          }
+        }
       }
     },
     data() {
@@ -43,7 +68,7 @@
         finished: false,
         pageNum: 1,
         list: [],
-        total: 0
+        total: 0,
       }
     },
     created() {
@@ -64,8 +89,8 @@
         const data = {
           pageNum: this.pageNum,
           pageSize: 10,
-          activityItemName: this.activityItemName,
-          submitStatus: this.submitStatus
+          submitStatus: this.submitStatus,
+          ...this.queryParams
         }
         this.loading = true
         this.$api.reqGetUserActivityItemList(data)
@@ -88,6 +113,17 @@
           this.loading = false
           this.finished = true
         })
+      }
+    },
+    watch: {
+      queryParams: {
+        deep: true,
+        handler: function() {
+          clearTimeout(this.timer)
+          this.timer = setTimeout(() => {
+            this.getData()
+          }, 500)
+        }
       }
     }
   }
@@ -114,7 +150,11 @@
     font-size: 0.24rem;
     margin-left: 0.1rem;
   }
-
+  .ex_span{
+    color: #828282;
+    font-size: 0.24rem;
+    margin-top: 0.2rem;
+  }
   .ex_footer {
     display: flex;
     justify-content: space-between;

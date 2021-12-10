@@ -1,26 +1,34 @@
 <!-- 体验官列表 -->
 <template>
   <div class="experienceList">
-    <van-nav-bar left-arrow :border="false"   @click-left="onClickLeft">
-      <template #title>
+    <van-nav-bar left-arrow title="我的体验表" @click-left="onClickLeft">
+      <!-- <template #title>
         <van-search v-model="keyword" placeholder="搜索" background="#1349AB" @search="onSearch" />
-      </template>
+      </template> -->
     </van-nav-bar>
-    <van-tabs v-model="active" background="#1349AB" color="#FFF000" title-active-color="#FFF000"
-      title-inactive-color="#ffffff" :lazy-render="false">
+    <van-field v-model="queryParams.sourcesName" name="sourcesName" label="事项来源" placeholder="请输入事项来源" />
+    <van-field v-model="queryParams.typeName" name="typeName" label="事项类别" placeholder="请输入事项类别" />
+    <van-field v-model="queryParams.activityItemName" name="activityItemName" label="体验事项" placeholder="请输入体验事项名称" />
+    <div class="btn_wrapper">
+      <van-button type="default" size="small" @click="reset">重置</van-button>
+      <van-button type="info" size="small" @click="onSearch">搜索</van-button>
+    </div>
+
+    <!-- background="#1349AB"  title-inactive-color="#ffffff"  color="#FFF000" title-active-color="#FFF000"-->
+    <van-tabs v-model="active" color="#1989fa" title-active-color="#1989fa" :lazy-render="false" :sticky="true">
       <van-tab title="全部">
         <div class="list">
-          <ExList :activityItemName="keyword" ref="all" />
+          <ExList :queryParams="queryParams" ref="all" />
         </div>
       </van-tab>
       <van-tab title="已提交">
         <div class="list">
-          <ExList :activityItemName="keyword" submitStatus="1" ref="submit" />
+          <ExList :queryParams="queryParams" submitStatus="1" ref="submit" />
         </div>
       </van-tab>
       <van-tab title="未提交">
         <div class="list">
-          <ExList :activityItemName="keyword" submitStatus="0" ref="unsubmit" />
+          <ExList :queryParams="queryParams" submitStatus="0" ref="unsubmit" />
         </div>
       </van-tab>
     </van-tabs>
@@ -32,7 +40,11 @@
   export default {
     data() {
       return {
-        keyword: "",
+        queryParams: {
+          sourcesName: '',
+          activityItemName: '',
+          typeName: '',
+        },
         active: 0
       }
     },
@@ -40,6 +52,14 @@
       ExList
     },
     methods: {
+      reset() {
+        this.queryParams = {
+          sourcesName: '',
+          activityItemName: '',
+          typeName: ''
+        }
+        // this.onSearch()
+      },
       onSearch() {
         this.$refs.all.getData()
         this.$refs.submit.getData()
@@ -54,69 +74,76 @@
 
 <style scoped lang="less">
   .experienceList {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     background: #ececec;
-    overflow: hidden;
+    // overflow: hidden;
   }
 
-  /deep/ .van-nav-bar {
-    background-color: #1349AB;
-    height: 1.22rem;
-    .van-nav-bar__content{
-      height: 100%;
-    }
-    .van-search__content {
-      background-color: #3674e4;
+  // /deep/ .van-nav-bar {
+  //   background-color: #1349AB;
+  //   height: 1.22rem;
+  //   .van-nav-bar__content{
+  //     height: 100%;
+  //   }
+  //   .van-search__content {
+  //     background-color: #3674e4;
+  //   }
 
-    }
+  //   .van-nav-bar__title {
+  //     width: 85%;
+  //     max-width: 85%;
+  //   }
 
-    .van-nav-bar__title {
-      width: 85%;
-      max-width: 85%;
-    }
+  //   .van-icon {
+  //     color: #FFFFFF;
+  //   }
+  //   .van-field__control{
+  //     color: #FFFFFF;
+  //   }
+  //   input::-webkit-input-placeholder {
+  //     color: rgba(255, 255, 255, 0.78);
+  //   }
 
-    .van-icon {
-      color: #FFFFFF;
-    }
-    .van-field__control{
-      color: #FFFFFF;
-    }
-    input::-webkit-input-placeholder {
-      color: rgba(255, 255, 255, 0.78);
-    }
+  //   input::-moz-input-placeholder {
+  //     color: rgba(255, 255, 255, 0.78);
+  //   }
 
-    input::-moz-input-placeholder {
-      color: rgba(255, 255, 255, 0.78);
-    }
+  //   input::-ms-input-placeholder {
+  //     color: rgba(255, 255, 255, 0.78);
+  //   }
 
-    input::-ms-input-placeholder {
-      color: rgba(255, 255, 255, 0.78);
-    }
+  // }
+  // /deep/ .van-tabs{
+  //   flex: 1;
+  //   display: flex;
+  //   flex-direction: column;
+  //   overflow: hidden;
+  //   .van-tabs__content{
+  //     flex: 1;
+  //     overflow: auto;
+  //   }
+  //   .van-tabs__wrap{
+  //     flex-shrink: 0;
+  //   }
+  // }
+  // /deep/ .van-tabs__nav {
+  //   background: #1349AB;
 
-  }
-  /deep/ .van-tabs{
-    flex: 1;
+  //   .van-tab {
+  //     font-weight: bold;
+  //   }
+  // }
+  .btn_wrapper{
     display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    .van-tabs__content{
-      flex: 1;
-      overflow: auto;
-    }
-    .van-tabs__wrap{
-      flex-shrink: 0;
+    background: #FFFFFF;
+    padding: 10px 16px;
+    box-sizing: border-box;
+    .van-button--small{
+      margin-right: 10px;
     }
   }
-  /deep/ .van-tabs__nav {
-    background: #1349AB;
-
-    .van-tab {
-      font-weight: bold;
-    }
-  }
-
   .list {
     padding: 0.3rem 0.4rem;
 

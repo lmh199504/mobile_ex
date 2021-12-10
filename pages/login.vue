@@ -28,7 +28,10 @@
       </van-form>
     </div>
 
-    <van-dialog v-model="show" title="厦门市营商环境体验官承诺书" show-cancel-button confirmButtonText="同意并进入">
+    <van-dialog v-model="show" title="厦门市营商环境体验官承诺书" show-cancel-button cancelButtonText="不同意"
+      confirmButtonColor="#169bd5"
+      confirmButtonText="我已详细阅读并同意"
+      @confirm="confirm">
       <div class="promise_container">
         <p>本人自愿成为厦门市营商环境体验活动体验官，参与体验期为 <span>2021年12月06日至2021年12月13日</span>。
           本人郑重承诺遵守本承诺书所有条款，如违反本承诺书有关条款，由本人承担由此带来的一切民事、行政和刑事责任。</p>
@@ -94,9 +97,9 @@
 
         this.$api.reqLoginByCode(data)
           .then(res => {
-            console.log(res)
             toast.clear();
             if (res.code == 200) {
+              // 判断是否已经同意
               this.$store.commit('setToken', res.token)
               this.$router.replace('/')
             } else {
@@ -150,7 +153,9 @@
       validator(val) {
         return /^1[3456789]\d{9}$/.test(val)
       },
-
+      confirm() {
+        this.$router.push('/')
+      }
     },
   }
 </script>
