@@ -5,21 +5,49 @@
       <div class="form_item border_b" style="margin-top: 10px;">
         <div class="item_label">真实姓名</div>
         <div class="item_con">
-          <input v-model="userInfo.reporterUsername" type="text" placeholder="真实姓名" style="" />
+          <input v-model="userInfo.reporterUsername" type="text" placeholder="真实姓名" />
         </div>
       </div>
       <div class="form_item border_b">
         <div class="item_label">手机号码</div>
         <div class="item_con">
-          <input v-model="userInfo.reporterPhone" readonly type="text" placeholder="请输入您的手机号" style="" />
+          <input v-model="userInfo.reporterPhone" readonly type="text" placeholder="请输入您的手机号" />
         </div>
       </div>
 
       <div class="form_item border_b">
         <div class="item_label">身份证</div>
         <div class="item_con">
-          <input v-model="userInfo.reporterIdNumber" readonly type="text" placeholder="身份证"
-            style="" />
+          <input v-model="userInfo.reporterIdNumber" readonly type="text" placeholder="身份证" />
+        </div>
+      </div>
+
+      <div class="form_item border_b">
+        <div class="item_label">所在单位</div>
+        <div class="item_con">
+          <input v-model="userInfo.reporterIdNumber" readonly type="text" placeholder="所在单位" />
+        </div>
+      </div>
+
+      <div class="form_item border_b">
+        <div class="item_label">职务</div>
+        <div class="item_con">
+          <input v-model="userInfo.reporterIdNumber" readonly type="text" placeholder="职务" />
+        </div>
+      </div>
+      
+      <div class="form_item border_b">
+        <div class="item_label">行业</div>
+        <div class="item_con">
+          <input v-model="userInfo.reporterIdNumber" readonly type="text" placeholder="行业" />
+        </div>
+      </div>
+      
+
+      <div class="form_item border_b">
+        <div class="item_label">推荐单位</div>
+        <div class="item_con">
+          <input v-model="userInfo.reporterIdNumber" readonly type="text" placeholder="推荐单位" />
         </div>
       </div>
 
@@ -50,16 +78,16 @@
     methods: {
       getInfo() {
         this.$api.reqGetInfo()
-        .then(res => {
-          console.log(res)
-          this.userInfo = res.user
-        })
-        .catch(() => {
+          .then(res => {
+            console.log(res)
+            this.userInfo = res.user
+          })
+          .catch(() => {
 
-        })
+          })
       },
       save() {
-        if(!this.userInfo.reporterUsername) {
+        if (!this.userInfo.reporterUsername) {
           this.$toast("请输入名字")
           return
         }
@@ -68,13 +96,13 @@
           message: "加载中..."
         })
         this.$api.reqSaveInfo(this.userInfo)
-        .then(res => {
-          loading.clear()
-          this.$toast("修改成功")
-        })
-        .catch(() => {
-          loading.clear()
-        })
+          .then(res => {
+            loading.clear()
+            this.$toast("修改成功")
+          })
+          .catch(() => {
+            loading.clear()
+          })
       },
       goCheck() {
         this.$router.push('/promise')
@@ -162,10 +190,12 @@
         text-align: right;
         display: flex;
         justify-content: flex-end;
-        .promise_check{
+
+        .promise_check {
           font-size: 14px;
           color: #1989fa;
         }
+
         input {
           width: 100%;
           border: none;

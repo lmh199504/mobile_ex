@@ -1,7 +1,7 @@
 <!-- 体验官列表 -->
 <template>
   <div class="experienceList">
-    <van-nav-bar left-arrow title="我的体验表" @click-left="onClickLeft">
+    <van-nav-bar left-arrow left-text="返回" title="我的体验表" @click-left="onClickLeft">
       <!-- <template #title>
         <van-search v-model="keyword" placeholder="搜索" background="#1349AB" @search="onSearch" />
       </template> -->
