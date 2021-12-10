@@ -13,7 +13,6 @@ export default function({
   $axios.onRequest((config) => {
     // config.headers
     const token = app.$cookies.get('ex_token')
-    console.log(token)
     if(token) {
       config.headers.Authorization = 'Bearer ' + token
     }

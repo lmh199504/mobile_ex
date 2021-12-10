@@ -1,5 +1,5 @@
 export default function({
-  app
+  app, store
 }) {
   app.router.beforeEach(async(to, from, next) => {
     const whitePath = ['/login']
@@ -11,6 +11,12 @@ export default function({
         next('/login')
       }
     } else {
+      try{
+        await store.dispatch('getInfo')
+      }catch(e){
+        next()
+        //TODO handle the exception
+      }
       next()
     }
   })

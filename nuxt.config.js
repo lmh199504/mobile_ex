@@ -32,6 +32,7 @@ export default {
   css: [
     '@/assets/css/global.less',
     'vant/lib/index.css',
+    {src:'element-ui/lib/theme-chalk/index.css'},    // 1.在 css 中配置 element-ui 的 css 位置
     'xmceloan-form-design-cst/dist/xmceloan-form-design-cst.css'
   ],
 

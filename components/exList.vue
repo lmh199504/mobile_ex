@@ -1,11 +1,6 @@
 <template>
-  <van-list
-    v-model="loading"
-    :finished="finished"
-    finished-text="没有更多了"
-    @load="onLoad"
-  >
-    <div class="ex_item" v-for="(item, index) in list" :key="index">
+  <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+    <div class="ex_item" v-for="(item, index) in list" :key="index" @click="goFill(item)">
       <div class="ex_title">{{ item.activityName }}</div>
       <div>
         <van-tag color="#1349AB" v-if="item.submitStatus==1">已提交</van-tag>
@@ -45,7 +40,7 @@
 </template>
 
 <script>
-  export default{
+  export default {
     props: {
       submitStatus: {
         type: String | Number,
@@ -72,14 +67,23 @@
       }
     },
     created() {
-       this.getData()
+      this.getData()
     },
-    methods:{
+    methods: {
       onLoad() {
         this.getData('more')
       },
+      goFill(item) {
+        this.$router.push({
+          path: "/fillForm",
+          query: {
+            projectNo: item.projectNo,
+            formSubmitId: item.formSubmitId
+          }
+        })
+      },
       getData(type = 'init') {
-        if(type == 'init' ) {
+        if (type == 'init') {
           this.list = []
           this.pageNum = 1
           this.finished = false
@@ -94,25 +98,25 @@
         }
         this.loading = true
         this.$api.reqGetUserActivityItemList(data)
-        .then(res => {
-          console.log(res)
-          this.total = res.total
-          if(type == 'init') {
-            this.list = res.rows
-          } else {
-            res.rows.forEach(item => {
-              this.list.push(item)
-            })
-          }
-          if(this.list.length >= this.total) {
+          .then(res => {
+            // console.log(res)
+            this.total = res.total
+            if (type == 'init') {
+              this.list = res.rows
+            } else {
+              res.rows.forEach(item => {
+                this.list.push(item)
+              })
+            }
+            if (this.list.length >= this.total) {
+              this.finished = true
+            }
+            this.loading = false
+          })
+          .catch(() => {
+            this.loading = false
             this.finished = true
-          }
-          this.loading = false
-        })
-        .catch(() => {
-          this.loading = false
-          this.finished = true
-        })
+          })
       }
     },
     watch: {
@@ -150,11 +154,13 @@
     font-size: 0.24rem;
     margin-left: 0.1rem;
   }
-  .ex_span{
+
+  .ex_span {
     color: #828282;
     font-size: 0.24rem;
     margin-top: 0.2rem;
   }
+
   .ex_footer {
     display: flex;
     justify-content: space-between;

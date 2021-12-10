@@ -29,13 +29,42 @@ export default function({
     method: "GET",
     params: data
   })
-  
+
   API.reqFormDetail = (id) => $axios({
     url: `/user/project/details/${id}`,
     method: "GET"
   })
-  
-  
+
+  API.reqUpFile = (data) => $axios({
+    url: "/common/upload",
+    method: "post",
+    data
+  })
+
+  API.reqGetFormDetail = (projectNo) => $axios({
+    url: `/user/project/details/${projectNo}`,
+    method: 'get'
+  })
+
+  API.reqSaveForm = (data) => $axios({
+    url: `/user/project/result/save`,
+    method: 'post',
+    data
+  })
+
+  API.reqResultAdd = (data) => $axios({
+    url: `/user/project/result/add`,
+    method: 'post',
+    data
+  })
+
+
+  API.reqGetUserResult = (params) => $axios({
+    url: '/reporting/user/profile/getUserResult',
+    method: 'get',
+    params
+  })
+
   app.api = API;
   inject('api', API);
 }
